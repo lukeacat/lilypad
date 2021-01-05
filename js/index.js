@@ -19,7 +19,7 @@ const blocks = JSON.parse(xmlHttp.responseText);
 const blockArray = Object.entries(blocks);
 const map = [];
 
-for (let i = 0; i < 40; i++) {
+for (let i = 0; i < 100; i++) {
     const random = Math.floor(Math.random() * 4);
     let blockExists;
 
