@@ -28,7 +28,7 @@ const player = {
 }
 
 var xmlHttp = new XMLHttpRequest();
-xmlHttp.open("GET","${location.href}/js/blocks.json", false);
+xmlHttp.open("GET",`/js/blocks.json`, false);
 xmlHttp.send(null);
 
 const blocks = JSON.parse(xmlHttp.responseText);
