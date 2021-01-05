@@ -1,66 +1,37 @@
-/*⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⢤⣄⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠠⠄⠤⠐⠚⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠓⠢⠤⣀⠀⠀⠀
-⠀⠀⠀⠀⢀⠤⣖⣶⣭⣷⣼⣄⠁⠀⠀⠀⠀⠀⠀⢐⣫⣭⣴⣶⣦⢄⠀⠀⠀⠀
-⠀⠀⠀⣪⣿⣿⣿⠿⢿⣿⣿⠻⣄⠀⠀⠀⠀⠀⢀⣼⠿⠿⢿⣿⣿⣿⣧⡀⠀⠀
-⠀⠀⣩⣿⣿⡟⣿⣠⣼⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠁⢸⣤⣼⣿⣿⠻⣿⣿⠀⠀
-⠀⢀⣿⣿⡟⠀⠹⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⣿⠏⠀⢹⣿⡄⠀
-⠀⠈⢿⣿⡃⠀⠀⠀⠉⢁⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣀⠈⠀⠀⠀⢰⠟⡇⠀
-⠀⠀⠀⠉⠗⠖⠀⠊⠉⠉⠁⠀⠀⠀⠀⠀⠀⠰⠀⠀⠈⠙⠛⠒⠀⠐⠆⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣒⣢⣤⣤⣤⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣝⠿⣿⣿⣿⣿⣿⠿⣻⠎⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⣈⡭⠭⣭⠴⠚⠁⠀⠀⠀⠀⠀⠀⠀*/
 const inventoryElement = document.getElementById("inventory");
 const canvas = document.getElementById('gameWindow');
 
 const ctx = canvas.getContext('2d');
 
-if(!localStorage.getItem('inventory'))
-  localStorage.setItem('inventory', "{}");
+storage.ensure("inventory", {});
 
 const player = {
   block: 0,
-  inventory: JSON.parse(localStorage.getItem('inventory'))
+  inventory: storage.get("inventory")
 }
 
+var popEffect = new Audio('/assets/pop.mp3');
 var xmlHttp = new XMLHttpRequest();
-xmlHttp.open("GET",`/js/blocks.json`, false);
+xmlHttp.open("GET",`/assets/blocks.json`, false);
 xmlHttp.send(null);
 
 const blocks = JSON.parse(xmlHttp.responseText);
-
+const blockArray = Object.entries(blocks);
 const map = [];
 
 for (let i = 0; i < 40; i++) {
     const random = Math.floor(Math.random() * 4);
-    let block;
-    if(Math.floor(Math.random() * 5) == 1) {
-      block = drawSeed(i*10, random, 10, "sunflower")
-    } else if(Math.floor(Math.random() * 10) == 1) {
-      block = drawSeed(i*10, random, 10, "sakura")
-    } else if(Math.floor(Math.random() * 15) == 1) {
-      block = drawSeed(i*10, random, 10, "rose")
-    } else if(Math.floor(Math.random() * 20) == 1) {
-      block = drawSeed(i*10, random, 10, "iris")
-    } else if(Math.floor(Math.random() * 25) == 1) {
-      block = drawSeed(i*10, random, 10, "lilac")
-    } else if(Math.floor(Math.random() * 30) == 1) {
-      block = drawSeed(i*10, random, 10, "tulip")
-    } else if(Math.floor(Math.random() * 35) == 1) {
-      block = drawSeed(i*10, random, 10, "narcissus")
-    } else if(Math.floor(Math.random() * 40) == 1) {
-      block = drawSeed(i*10, random, 10, "potato")
-    } else if(Math.floor(Math.random() * 45) == 1) {
-      block = drawSeed(i*10, random, 10, "carrot")
-    } else if(Math.floor(Math.random() * 50) == 1) {
-      block = drawSeed(i*10, random, 10, "peony")
-    }
+    let blockExists;
 
-    map.push([i*10, 90-random, block])
+    const onlySeeds = blockArray.map(e=>e[1].type == "seed");
+    for(let m = 0; m<onlySeeds.length; m++) {
+      if(Math.floor(Math.random() * blockArray[m][1].chance) == 1) {
+        blockExists = blockArray[m][0]
+        drawSeed(i*10, random, 10, blockExists)
+      }
+    }
+  
+    map.push([i*10, 90-random, blockExists])
     ctx.fillStyle = blocks.grass.color;
     ctx.fillRect(i*10, 90-random, 10, 10);
 }
@@ -69,7 +40,7 @@ ctx.fillStyle = "black";
 ctx.fillRect(0, map[0][1]-10, 10, 10)
 
 function drawSeed(x, y, scale, seed) {
-      ctx.fillStyle = blocks.grass.color;
+      ctx.fillStyle = blocks[blocks[seed].base].color;
       ctx.fillRect(x, 80-y, scale, scale);
       ctx.fillStyle = blocks[seed].color
       ctx.fillRect(x, 70-y, scale, scale);
@@ -79,8 +50,10 @@ function drawSeed(x, y, scale, seed) {
 
 function update() {
   let block;
+
   window.onkeydown = e => {
     switch(e.key) {
+      case "ArrowRight":
       case "d":
         player.block += 1;
         block = blocks[map[player.block-1][2]];
@@ -94,6 +67,7 @@ function update() {
         ctx.fillStyle = "black";
         ctx.fillRect(player.block*10, map[player.block][1]-10, 10, 10)
         break;
+      case "ArrowLeft":
       case "a":
         player.block -= 1;
         block = blocks[map[player.block+1][2]];
@@ -107,6 +81,7 @@ function update() {
         ctx.fillStyle = "black";
         ctx.fillRect(player.block*10, map[player.block][1]-10, 10, 10)
         break;
+      case "ArrowUp":
       case "e":
         const blockname = map[player.block][2];
         block = blocks[blockname];
@@ -115,12 +90,13 @@ function update() {
             if(!player.inventory[blockname]) {
               player.inventory[blockname] = {
                 name: blockname,
-                amount: 1
+                amount: 1,
+                type: "seed"
               }
             } else
               player.inventory[blockname].amount += 1;
-            
-            localStorage.setItem('inventory', JSON.stringify(player.inventory));
+            popEffect.play();            
+            storage.set("inventory", player.inventory);
             
             ctx.clearRect(player.block*10, map[player.block][1]-20, 10, 10)
             map[player.block][3] = true;
@@ -132,7 +108,7 @@ function update() {
 
   let string = ""
   
-  for (const [key, value] of Object.entries(JSON.parse(localStorage.getItem('inventory')))) {
+  for (const [key, value] of Object.entries(storage.get("inventory"))) {
     string += `<br>${key.charAt(0).toUpperCase() + key.slice(1)} x${value.amount}`;
   }
   

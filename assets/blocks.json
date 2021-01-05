@@ -3,54 +3,68 @@
         "color":"#268b07",
         "type":"block"
     },
+    "defaultBase": {
+        "color": "#90ee90",
+        "type": "block"
+    },
     "sunflower":{
         "color":"#ffff00",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 10
     },
     "sakura":{
         "color":"#FFDDF4",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 15
     },
     "rose":{
         "color":"red",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 20
     },
     "iris":{
         "color":"#d4ebf2",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 25
     },
     "lilac":{
         "color":"purple",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 30
     },
     "tulip":{
         "color":"#301934",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 35
     },
     "narcissus":{
         "color":"yellow",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 40
     },
     "potato":{
         "color":"brown",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 45
     },
     "carrot":{
         "color":"orange",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 50
     },
     "peony":{
         "color":"#7C0902",
         "type":"seed",
-        "base":"grass"
+        "base":"defaultBase",
+        "chance": 55
     }
 }
