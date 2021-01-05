@@ -1,0 +1,23 @@
+:root {
+  --main: #c8e9ee;
+  --alt: #78b4b4;
+}
+
+.center {
+  text-align: center;
+}
+
+h1, h2 {
+  color: var(--main);
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 2em;
+  color: var(--alt);
+  background-color: #eee;
+}
+
+canvas {
+  background-color: lightblue;
+}
