@@ -8,12 +8,11 @@
     <title>Lilypad</title>
     
     <link rel="stylesheet" href="/css/index.css">
-    
+    <script src="/js/storage.js" defer></script>
     <script src="/js/index.js" defer></script>
   </head>  
   <body class="center">
     <h1>Lilypad</h1>
-    
     <p>Lilypad is a in-browser timewaster.</p>
     <p>That's how I would describe it.</p>
     <br>
@@ -22,10 +21,12 @@
     <p>Controls: A & D to move, E to pick</p>
     <hr>
     <a href="rates.html">Flower Rates</a> | 
-    <a href="https://discord.gg/BGr2dVNNDA">Discord</a>
+    <a href="https://discord.gg/BGr2dVNNDA">Discord</a> |
+    <a href="shop.html">Shop</a>
     <h1>Game</h1>
     <canvas id="gameWindow" width="400" height="100"></canvas><br>
-    <button onclick="window.location.reload()">Load new Map</button>
+    <button onclick="window.location.reload()">Load new Map</button><br>
+    <button onclick="localStorage.removeItem('inventory');window.location.reload()">Clear inventory</button>
     <p>Inventory:</p>
     <p id="inventory"></p>
   </body>
