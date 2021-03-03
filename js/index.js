@@ -10,9 +10,9 @@ const player = {
   inventory: storage.get("inventory")
 }
 
-var popEffect = new Audio('/assets/pop.mp3');
+var popEffect = new Audio('assets/pop.mp3');
 var xmlHttp = new XMLHttpRequest();
-xmlHttp.open("GET",`/assets/blocks.json`, false);
+xmlHttp.open("GET",`assets/blocks.json`, false);
 xmlHttp.send(null);
 
 const blocks = JSON.parse(xmlHttp.responseText);
